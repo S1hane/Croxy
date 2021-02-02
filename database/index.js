@@ -3,9 +3,21 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-const db = mongoose.connect('mongodb://database/itemlist', { useNewUrlParser: true, useUnifiedTopology: true })
+let databaseURL = 'mongodb://localhost/related';
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+};
+
+if (process.env.NODE_ENV === 'production') {
+  databaseURL = process.env.databaseURI;
+  options.user = process.env.databaseUser;
+  options.pass = process.env.databasePass;
+}
+
+const db = mongoose.connect(databaseURL, options)
   .then(() => console.log('Connected to Mongo'))
-  .catch((err) => console.log(err));
+  .catch((err) => console.log('Mongo connection error:', err));
 
 const schema = new mongoose.Schema({
   _id: Number,
