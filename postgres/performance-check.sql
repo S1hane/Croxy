@@ -1,0 +1,4 @@
+EXPLAIN ANALYZE
+SELECT (i1_4, i5_8, i9, fav)
+FROM  images
+WHERE id = 777777;
