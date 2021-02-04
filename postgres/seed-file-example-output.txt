@@ -1,3 +1,80 @@
+-------------------------------------------------------------------------------
+|| Postgres database schema.                                                 ||
+-------------------------------------------------------------------------------
+CREATE TABLE images
+(
+  id    integer CONSTRAINT pk_images PRIMARY KEY,
+  i1_4  bigint NOT NULL
+  CONSTRAINT max_num_i1_4 CHECK (i1_4 < 10000000000000000)
+  CONSTRAINT min_num_i1_4 CHECK (i1_4 > -1),
+  i5_8  bigint NULL
+  CONSTRAINT max_num_i5_8 CHECK (i5_8 < 10000000000000000)
+  CONSTRAINT min_num_i5_8 CHECK (i5_8 > -1),
+  i9    smallint NULL
+  CONSTRAINT max_num_i9 CHECK (i9 < 10000)
+  CONSTRAINT min_num_i9 CHECK (i9 > -1),
+  fav boolean NULL
+);
+
+-------------------------------------------------------------------------------
+|| Demonstration of successful record insertion and retrieval.               ||
+-------------------------------------------------------------------------------
+postgres=# INSERT INTO images (id, i1_4, i5_8, i9, fav)
+VALUES
+  (9999999, 1111222233334444, 5555666677778888, 9999, 't'),
+  (9999998, 0000000000000000, 0000000000000000, 0000, 'f'),
+  (9999997, 9999999999999999, 9999999999999999, 9999, 'f');
+INSERT 0 3
+
+postgres=# SELECT (i1_4, i5_8, i9, fav) FROM images;
+                    row
+--------------------------------------------
+ (1111222233334444,5555666677778888,9999,t)
+ (0,0,0,f)
+ (9999999999999999,9999999999999999,9999,f)
+(3 rows)
+
+-------------------------------------------------------------------------------
+|| Demonstration of successful constraints.                                  ||
+-------------------------------------------------------------------------------
+postgres=# INSERT INTO images (id, i1_4, i5_8, i9, fav) VALUES
+  (1, 10000000000000000, 7777777777777777, 7777, 'f');
+ERROR:  new row for relation "images" violates check constraint "max_num_i1_4"
+DETAIL:  Failing row contains (1, 10000000000000000, 7777777777777777, 7777, f).
+
+postgres=# INSERT INTO images (id, i1_4, i5_8, i9, fav) VALUES
+  (2, -1, 7777777777777777, 7777, 'f');
+ERROR:  new row for relation "images" violates check constraint "min_num_i1_4"
+DETAIL:  Failing row contains (2, -1, 7777777777777777, 7777, f).
+
+postgres=# INSERT INTO images (id, i1_4, i5_8, i9, fav) VALUES
+  (3, 7777777777777777, 10000000000000000, 7777, 'f');
+ERROR:  new row for relation "images" violates check constraint "max_num_i5_8"
+DETAIL:  Failing row contains (3, 7777777777777777, 10000000000000000, 7777, f).
+
+postgres=# INSERT INTO images (id, i1_4, i5_8, i9, fav) VALUES
+  (4, 7777777777777777, -1, 7777, 'f');
+ERROR:  new row for relation "images" violates check constraint "min_num_i5_8"
+DETAIL:  Failing row contains (4, 7777777777777777, -1, 7777, f).
+
+postgres=# INSERT INTO images (id, i1_4, i5_8, i9, fav) VALUES
+  (5, 7777777777777777, 7777777777777777, 10000, 'f');
+ERROR:  new row for relation "images" violates check constraint "max_num_i9"
+DETAIL:  Failing row contains (5, 7777777777777777, 7777777777777777, 10000, f).
+
+postgres=# INSERT INTO images (id, i1_4, i5_8, i9, fav) VALUES
+  (6, 7777777777777777, 7777777777777777, -1, 'f');
+ERROR:  new row for relation "images" violates check constraint "min_num_i9"
+DETAIL:  Failing row contains (6, 7777777777777777, 7777777777777777, -1, f).
+
+postgres=# INSERT INTO images (id, i1_4, i5_8, i9, fav) VALUES
+  (-1, 7777777777777777, 7777777777777777, -1, 'f');
+ERROR:  new row for relation "images" violates check constraint "min_num_i9"
+DETAIL:  Failing row contains (-1, 7777777777777777, 7777777777777777, -1, f).
+
+-------------------------------------------------------------------------------
+|| Example live dataset.                                                     ||
+-------------------------------------------------------------------------------
 INSERT INTO images (id, i1_4, i5_8, i9, fav) VALUES
 (1, 5022, 0, 0, 'f'),
 (2, 1371829794837943, 0, 0, 'f'),
@@ -9,3 +86,18 @@ INSERT INTO images (id, i1_4, i5_8, i9, fav) VALUES
 (8, 212718636421, 0, 0, 'f'),
 (9, 4781816078887376, 56326130, 0, 'f'),
 (10, 8491465443291789, 5838, 0, 'f');
+
+-------------------------------------------------------------------------------
+|| Diagram of API response for ID 2.                                         ||
+-------------------------------------------------------------------------------
+
+ 2 <--- ID                   false <-- no favorites
+ |                           |
+(2, 1371829794837943, 0, 0, 'f')
+    1371 <--image 4
+        8297 <--image 3
+            9483 <-- image 2
+                7943 <-- image 1
+
+--
+End of file
