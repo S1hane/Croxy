@@ -1,0 +1,46 @@
+-------------------------------------------------------------------------------
+|| Command used to check performance.                                        ||
+-------------------------------------------------------------------------------
+pgbench -c 100 -T 300 -S -n
+
+-------------------------------------------------------------------------------
+|| Default options.                                                          ||
+-------------------------------------------------------------------------------
+pgbench -c 100 -T 300 -S -n
+transaction type: <builtin: select only>
+scaling factor: 1
+query mode: simple
+number of clients: 100
+number of threads: 1
+duration: 300 s
+number of transactions actually processed: 3241004
+latency average = 9.261 ms
+tps = 10797.618518 (including connections establishing)
+tps = 10797.692582 (excluding connections establishing)
+
+-------------------------------------------------------------------------------
+|| Tuned configuration.                                                      ||
+-------------------------------------------------------------------------------
+max_connections = 1000
+shared_buffers = 256MB
+effective_cache_size = 768MB
+maintenance_work_mem = 128MB
+checkpoint_completion_target = 0.9
+wal_buffers = 7864kB
+default_statistics_target = 500
+random_page_cost = 1.1
+effective_io_concurrency = 200
+work_mem = 65kB
+min_wal_size = 4GB
+max_wal_size = 16GB
+
+
+scaling factor: 1
+query mode: simple
+number of clients: 100
+number of threads: 1
+duration: 300 s
+number of transactions actually processed: 3254496
+latency average = 9.223 ms
+tps = 10842.660066 (including connections establishing)
+tps = 10842.738971 (excluding connections establishing)
