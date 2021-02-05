@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack -w",
     "start": "node server/index.js",
-    "startdev": "nodemon -L index.js",
+    "startdev": "nodemon server/index.js",
     "seed": "node database/seed.js",
     "seed-postgres": "node database/seed.js",
     "test": "jest --verbose",
@@ -28,11 +28,13 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "faker": "^5.1.0",
-    "mongoose": "^5.11.11",
     "node-fetch": "^2.6.1",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
     "prop-types": "^15.7.2",
     "react": "^16.14.0",
-    "react-dom": "^16.14.0"
+    "react-dom": "^16.14.0",
+    "sequelize": "^6.5.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
