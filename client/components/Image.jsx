@@ -34,7 +34,8 @@ class Image extends React.PureComponent {
 
   getItems(itemId) {
     const { id, main } = this.state;
-    const item = itemId || id;
+    // const item = itemId || id;
+    const item = Math.floor(Math.random() * Math.floor(10000000));
     axios.get(`/api/items/${item}`)
       .then(({ data }) => {
         const thumbsArray = [];

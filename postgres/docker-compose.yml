@@ -9,7 +9,7 @@ services:
     ports:
       - 5432:5432
     build:
-      context: './postgres'
+      context: '.'
       dockerfile: 'Dockerfile'
     environment:
       POSTGRES_USER: 'postgres'

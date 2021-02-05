@@ -16,14 +16,13 @@ CREATE TABLE images
   CONSTRAINT min_num_i9 CHECK (i9 > -1),
   fav boolean NULL
 );
-
 GRANT SELECT, UPDATE, INSERT ON TABLE images TO student;
 
 -- These test records are inserted above the 10M record scope of the project.
 -- Feel free to remove them. They just facilitate testing of an unseeded database.
 INSERT INTO images (id, i1_4, i5_8, i9, fav)
 VALUES
-  (10000000, 1111222233334444, 5555666677778888, 9999, 't'),
-  (10000001, 0000000000000000, 0000000000000000, 0000, 'f'),
-  (10000002, 9999999999999999, 9999999999999999, 9999, 'f');
+  (10000001, 1111222233334444, 5555666677778888, 9999, 't'),
+  (10000002, 0000000000000000, 0000000000000000, 0000, 'f'),
+  (10000003, 9999999999999999, 9999999999999999, 9999, 'f');
 SELECT (i1_4, i5_8, i9, fav) FROM images;
