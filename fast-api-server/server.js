@@ -1,7 +1,9 @@
-const port = 3004;
-const fastify = require('fastify')();
 const path = require('path');
+const fastify = require('fastify')();
+const views = require(path.join(__dirname, 'modules', 'views.js'));
 const DATABASE_URL = (process.env.DATABASE_URL) ? process.env.DATABASE_URL : 'postgres://student:student@3.235.173.226/postgres';
+const port = 3004;
+
 
 fastify.register(require('fastify-postgres'), {
   connectionString: DATABASE_URL
@@ -15,7 +17,10 @@ fastify.get('/api/items/:id', (req, reply) => {
       'SELECT (i1_4, i5_8, i9, fav) FROM images WHERE id =$1', [req.params.id],
       function onResult (err, result) {
         release();
-        reply.send(err || result.rows[0].row);
+        views.formatOneRecord(result.rows[0].row)
+          .then((formattedRecord) => {
+            reply.send(err || formattedRecord);
+          });
       }
     );
   };
