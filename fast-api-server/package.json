@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fastify": "^3.11.0",
     "fastify-postgres": "^3.4.0",
     "node": "^15.7.0",
     "pg": "^8.5.1"
