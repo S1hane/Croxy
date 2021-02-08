@@ -4,14 +4,14 @@ const controller = require(path.join(__dirname, 'modules', 'controller.js'));
 const app = express();
 const port = 3004;
 
-app.use(express.json());
+// app.use(express.json());
 
 // app.get('/', (req, res, next) => {
 //   res
 //     .status(200)
 //     .send('Hello from Proxy.');
 // });
-app.use(express.static(path.resolve(__dirname, '../public')));
+// app.use(express.static(path.resolve(__dirname, '../public')));
 
 app.get('/api/items/:id', controller.handleAPIrequest);
 

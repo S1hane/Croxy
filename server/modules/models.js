@@ -14,8 +14,7 @@ module.exports.returnOneRecord = (requestedID) => {
     };
     db.sequelize.query(query, options)
       .then((result) => {
-        let formattedResult = modifyDatabaseResponseToMatchAPIFormat(result);
-        resolve(formattedResult);
+        resolve(modifyDatabaseResponseToMatchAPIFormat(result));
       })
       .catch((error) => {
         reject(error);
@@ -44,7 +43,6 @@ const modifyDatabaseResponseToMatchAPIFormat = (response) => {
         injectImageAndThumbnailUrls(images1_4.substring(lengthOfFirstImageInSet, lengthOfFirstImageInSet + 4), 1);
         lengthOfFirstImageInSet = 4;
       }
-      console.log('lengthOfFirstImageInSet', lengthOfFirstImageInSet);
     }
     if (qtyOfImages >= 2) {
       injectImageAndThumbnailUrls(images1_4.substring(lengthOfFirstImageInSet, lengthOfFirstImageInSet + 4), 2);
@@ -63,7 +61,6 @@ const modifyDatabaseResponseToMatchAPIFormat = (response) => {
         injectImageAndThumbnailUrls(images5_8.substring(lengthOfFirstImageInSet, lengthOfFirstImageInSet + 4), 1);
         lengthOfFirstImageInSet = 4;
       }
-      console.log('lengthOfFirstImageInSet', lengthOfFirstImageInSet);
     }
     if (qtyOfImages >= 6) {
       injectImageAndThumbnailUrls(images5_8.substring(lengthOfFirstImageInSet, lengthOfFirstImageInSet + 4), 6);
@@ -84,6 +81,5 @@ const modifyDatabaseResponseToMatchAPIFormat = (response) => {
     outputObject.thumbs.push(`${IMAGE_URL_SETTINGS.prefix}${IMAGE_URL_SETTINGS.thumbImagePrefix}${id}${IMAGE_URL_SETTINGS.suffix}`);
   };
   convertImageIdsToFullImageUrls();
-  console.dir(outputObject);
   return outputObject;
 };
