@@ -22,7 +22,6 @@ fastify.get('/api/items/:id', (req, reply) => {
   fastify.pg.connect(onConnect);
 });
 
-
 fastify.listen(port, '0.0.0.0', function (err, address) {
   if (err) {
     console.error(err);
