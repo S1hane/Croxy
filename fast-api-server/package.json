@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@newrelic/native-metrics": "^6.0.0",
     "fastify": "^3.11.0",
     "fastify-postgres": "^3.4.0",
     "newrelic": "^7.1.1",
