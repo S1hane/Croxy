@@ -14,6 +14,7 @@ git clone --branch aws-code-deploy https://github.com/highly-caffeinated/shane-i
 cd /home/ec2-user/shane-image-slider-service/fast-api-server/ &&
 npm install &&
 npm install pm2 -g &&
-sudo env PATH=$PATH:/home/ec2-user/.nvm/versions/node/v14.15.4/bin /home/ec2-user/.nvm/versions/node/v14.15.4/lib/node_modules/pm2/bin/pm2 startup systemd -u ec2-user --hp /home/ec2-user &&
+pm2 startup | grep sudo | bash &&
+source /home/ec2-user/.bashrc &&
 pm2 start /home/ec2-user/shane-image-slider-service/fast-api-server/server.js &&
 exit 0;
