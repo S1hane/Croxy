@@ -1,8 +1,9 @@
 const path = require('path');
 const fastify = require('fastify')();
 const views = require(path.join(__dirname, 'modules', 'views.js'));
-const DATABASE_URL = (process.env.DATABASE_URL) ? process.env.DATABASE_URL : 'postgres://student:student@3.235.173.226/postgres';
+const DATABASE_URL = (process.env.DATABASE_URL) ? process.env.DATABASE_URL : 'postgres://student:student@localhost/postgres';
 const port = 3004;
+require('newrelic');
 
 
 fastify.register(require('fastify-postgres'), {
@@ -12,7 +13,6 @@ fastify.register(require('fastify-postgres'), {
 fastify.get('/api/items/:id', (req, reply) => {
   const onConnect = async (err, client, release) => {
     if (err) { return reply.send(err); }
-
     client.query(
       'SELECT (i1_4, i5_8, i9, fav) FROM images WHERE id =$1', [req.params.id],
       function onResult (err, result) {
