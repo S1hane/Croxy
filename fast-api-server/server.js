@@ -1,7 +1,7 @@
 const path = require('path');
 const fastify = require('fastify')();
 const views = require(path.join(__dirname, 'modules', 'views.js'));
-const DATABASE_URL = 'postgres://student:student@172.31.83.56/postgres';
+const DATABASE_URL = 'postgres://student:student@172.31.74.177/postgres';
 const port = 3004;
 // require('newrelic');
 
