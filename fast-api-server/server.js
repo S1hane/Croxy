@@ -32,7 +32,7 @@ fastify.register(require('fastify-static'), {
 });
 
 fastify.get('/loaderio-eabfce1e64246bc1b53795f3bc45c2cb.txt', function (req, reply) {
-  return reply.sendFile('myHtml.html');
+  return reply.sendFile('loaderio-eabfce1e64246bc1b53795f3bc45c2cb.txt');
 });
 
 fastify.listen(port, '0.0.0.0', function (err, address) {
