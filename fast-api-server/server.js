@@ -27,6 +27,10 @@ fastify.get('/api/items/:id', (req, reply) => {
   fastify.pg.connect(onConnect);
 });
 
+fastify.get('/loaderio-eabfce1e64246bc1b53795f3bc45c2cb.txt', function (req, reply) {
+  return reply.sendFile('myHtml.html'); // serving path.join(__dirname, 'public', 'myHtml.html') directly
+});
+
 fastify.listen(port, '0.0.0.0', function (err, address) {
   if (err) {
     console.error(err);
