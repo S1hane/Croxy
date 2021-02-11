@@ -27,12 +27,8 @@ fastify.get('/api/items/:id', (req, reply) => {
   fastify.pg.connect(onConnect);
 });
 
-fastify.register(require('fastify-static'), {
-  root: path.join(__dirname)
-});
-
 fastify.get('/loaderio-eabfce1e64246bc1b53795f3bc45c2cb.txt', function (req, reply) {
-  return reply.sendFile('loaderio-eabfce1e64246bc1b53795f3bc45c2cb.txt');
+  return reply.sendFile('loaderio-eabfce1e64246bc1b53795f3bc45c2cb.txt', path.join(__dirname));
 });
 
 fastify.listen(port, '0.0.0.0', function (err, address) {
