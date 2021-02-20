@@ -16,6 +16,8 @@ CREATE TABLE images
   CONSTRAINT min_num_i9 CHECK (i9 > -1),
   fav boolean NULL
 );
+DROP USER IF EXISTS student;
+CREATE USER student WITH PASSWORD 'student';
 GRANT SELECT, UPDATE, INSERT ON TABLE images TO student;
 
 -- These test records are inserted above the 10M record scope of the project.
